@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         currentScore.setText(Integer.toString(score));
     }
 
-    public void populateFirstQuestionAndAnswer(View view) {
+    public void populateQuestionAndAnswer(View view) {
         global = getRandomNumber(getQuestions().length);
         int correctAnswerNumber = getRightAnswer();
         if (correctAnswerNumber == 1) {
@@ -71,21 +71,7 @@ public class MainActivity extends AppCompatActivity {
         displayScore(R.id.current_score_number, userScore);
         displayScore(R.id.highest_possible_score_number, attempts);
     }
-    public void populateNewQuestionAndAnswer() {
-        global = getRandomNumber(getQuestions().length);
-        int correctAnswerNumber = getRightAnswer();
-        if (correctAnswerNumber == 1) {
-            populate(R.id.answer_text_1, getAnswers(), global);
-            populate(R.id.answer_text_2, getAnswers(), getWrongAnswer(global));
-        } else {
-            populate(R.id.answer_text_2, getAnswers(), global);
-            populate(R.id.answer_text_1, getAnswers(), getWrongAnswer(global));
-        }
 
-        populate(R.id.question_text, getQuestions(), global);
-        displayScore(R.id.current_score_number, userScore);
-        displayScore(R.id.highest_possible_score_number, attempts);
-    }
     public void answerWasCorrect(final View view) {
         view.setBackgroundResource(R.color.colorAccent);
         view.postDelayed(new Runnable() {
@@ -94,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 view.setBackgroundResource(R.color.white);
                 userScore++;
                 attempts++;
-                populateNewQuestionAndAnswer();
+                populateQuestionAndAnswer(view);
             }
         }, 500);
     }
@@ -105,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 view.setBackgroundResource(R.color.white);
                 attempts++;
-                populateNewQuestionAndAnswer();
+                populateQuestionAndAnswer(view);
             }
         }, 500);
     }
