@@ -13,20 +13,21 @@ public class MainActivity extends AppCompatActivity {
     int global = 0;
     int userScore = 0;
     int attempts = 0;
+    String[] questions;
+    String[] answers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public String[] getQuestions(){
+    public void getQuestions(){
         Resources arr = getResources();
-        String[] questions = arr.getStringArray(R.array.states_array);
-        return questions;
+        questions = arr.getStringArray(R.array.states_array);
     }
-    public String[] getAnswers() {
+    public void getAnswers() {
         Resources arr = getResources();
-        String[] answers = arr.getStringArray(R.array.capitals_array);
-        return answers;
+        answers = arr.getStringArray(R.array.capitals_array);
     }
 
     public int getRandomNumber(int length) {
@@ -38,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         return newRand;
     }
     public int getWrongAnswer(int correct) {
-        int newRand = getRandomNumber(getAnswers().length);
+        int newRand = getRandomNumber(answers.length);
         while (newRand == correct) {
-            newRand = getRandomNumber(getAnswers().length);
+            newRand = getRandomNumber(answers.length);
         }
         return newRand;
     }
@@ -59,24 +60,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void populateQuestionAndAnswer(View view) {
-        global = getRandomNumber(getQuestions().length);
+        getQuestions();
+        getAnswers();
+        global = getRandomNumber(questions.length);
         int correctAnswerNumber = getRightAnswer();
         if (correctAnswerNumber == 1) {
-            populate(R.id.answer_text_1, getAnswers(), global);
-            populate(R.id.answer_text_2, getAnswers(), getWrongAnswer(global));
+            populate(R.id.answer_text_1, answers, global);
+            populate(R.id.answer_text_2, answers, getWrongAnswer(global));
         } else {
-            populate(R.id.answer_text_2, getAnswers(), global);
-            populate(R.id.answer_text_1, getAnswers(), getWrongAnswer(global));
+            populate(R.id.answer_text_2, answers, global);
+            populate(R.id.answer_text_1, answers, getWrongAnswer(global));
         }
 
-        populate(R.id.question_text, getQuestions(), global);
+        populate(R.id.question_text, questions, global);
+
+        displayText(R.id.current_score_title, R.string.current_score);
         displayScore(R.id.current_score_number, userScore);
+        displayText(R.id.slash_symbol, R.string.slash_symbol);
         displayScore(R.id.highest_possible_score_number, attempts);
+
         displayText(R.id.question_text_constant, R.string.what_is);
         displayText(R.id.question_title, R.string.question_title);
         displayText(R.id.answer_title, R.string.answer_title);
-        displayText(R.id.current_score_title, R.string.current_score);
-        displayText(R.id.slash_symbol, R.string.slash_symbol);
+
+
 
     }
 
@@ -104,9 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }, 500);
     }
     public void checkIfCorrect(View view) {
-        String input = ((TextView)view).getText().toString();
-        String answer = getAnswers()[global];
-        if (((TextView)view).getText().toString().equals(getAnswers()[global])) {
+        if (((TextView)view).getText().toString().equals(answers[global])) {
             answerWasCorrect(view);
         } else {
             answerWasIncorrect(view);
