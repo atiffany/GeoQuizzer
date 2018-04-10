@@ -54,21 +54,21 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/answer_title">
                 <TextView
-                    android:id="@+id/answer_correct_text"
+                    android:id="@+id/answer_text_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:height="48dp"
                     android:layout_marginRight="16dp"
                     android:clickable="true"
-                    android:onClick="answerWasCorrect"
+                    android:onClick="checkIfCorrect"
                     android:text=""/>
                 <TextView
-                    android:id="@+id/answer_incorrect_text"
+                    android:id="@+id/answer_text_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:height="48dp"
                     android:clickable="true"
-                    android:onClick="answerWasIncorrect"
+                    android:onClick="checkIfCorrect"
                     android:text=""/>
             </LinearLayout>
         </RelativeLayout>
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_alignParentBottom="true"
+                android:layout_above="@id/reset_button"
                 android:layout_centerHorizontal="true">
                 <TextView
                     android:id="@+id/current_score_number"
@@ -103,6 +103,14 @@
                     android:layout_height="wrap_content"
                     android:text="10"/>
             </LinearLayout>
+            <Button
+                android:id="@+id/reset_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:onClick="resetScore"
+                android:text="@string/reset_game"/>
         </RelativeLayout>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
