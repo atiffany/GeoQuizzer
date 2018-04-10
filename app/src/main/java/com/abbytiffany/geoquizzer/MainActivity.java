@@ -12,6 +12,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     int global = 0;
     int userScore = 0;
+    int attempts = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         currentRes.setText(arr[randomNumber]);
     }
     public void displayScore(int resource, int score) {
-        TextView view = findViewById(resource);
-        view.setText(score);
+        TextView currentScore = findViewById(resource);
+        currentScore.setText(Integer.toString(score));
     }
 
     public void populateFirstQuestionAndAnswer(View view) {
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         populate(R.id.question_text, getQuestions(), global);
         populate(R.id.answer_correct_text, getAnswers(), global);
         populate(R.id.answer_incorrect_text, getAnswers(), getWrongAnswer(global));
-        //displayScore(R.id.current_score_number, 0);
+        displayScore(R.id.current_score_number, userScore);
+        displayScore(R.id.highest_possible_score_number, attempts);
     }
     public void populateNewQuestionAndAnswer() {
         int global = getRandomNumber(getQuestions());
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         populate(R.id.question_text, getQuestions(), global);
         populate(R.id.answer_correct_text, getAnswers(), global);
         populate(R.id.answer_incorrect_text, getAnswers(),getWrongAnswer(global));
+        displayScore(R.id.current_score_number, userScore);
+        displayScore(R.id.highest_possible_score_number, attempts);
     }
     public void answerWasCorrect(final View view) {
         view.setBackgroundResource(R.color.colorAccent);
@@ -70,12 +74,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 view.setBackgroundResource(R.color.white);
-                checkIfCorrect();
+                userScore++;
+                attempts++;
+                populateNewQuestionAndAnswer();
             }
         }, 500);
     }
-    public void checkIfCorrect() {
-        userScore++;
-        populateNewQuestionAndAnswer();
+    public void answerWasIncorrect(final View view) {
+        view.setBackgroundResource(R.color.colorPrimaryLight);
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setBackgroundResource(R.color.white);
+                attempts++;
+                populateNewQuestionAndAnswer();
+            }
+        }, 500);
     }
 }
