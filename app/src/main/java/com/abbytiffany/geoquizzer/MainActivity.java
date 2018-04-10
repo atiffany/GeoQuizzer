@@ -3,7 +3,6 @@ package com.abbytiffany.geoquizzer;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public int getRightAnswer() {
         int newRand = getRandomNumber(2);
-        Log.v( "random num", Integer.toString(newRand));
         return newRand;
     }
     public int getWrongAnswer(int correct) {
@@ -55,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         TextView currentScore = findViewById(resource);
         currentScore.setText(Integer.toString(score));
     }
+    public void displayText(int resource, int textResource) {
+        TextView currentScore = findViewById(resource);
+        currentScore.setText(getResources().getText(textResource));
+    }
 
     public void populateQuestionAndAnswer(View view) {
         global = getRandomNumber(getQuestions().length);
@@ -70,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
         populate(R.id.question_text, getQuestions(), global);
         displayScore(R.id.current_score_number, userScore);
         displayScore(R.id.highest_possible_score_number, attempts);
+        displayText(R.id.question_text_constant, R.string.what_is);
+        displayText(R.id.question_title, R.string.question_title);
+        displayText(R.id.answer_title, R.string.answer_title);
+        displayText(R.id.current_score_title, R.string.current_score);
+        displayText(R.id.slash_symbol, R.string.slash_symbol);
+
     }
 
     public void answerWasCorrect(final View view) {
@@ -98,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
     public void checkIfCorrect(View view) {
         String input = ((TextView)view).getText().toString();
         String answer = getAnswers()[global];
-        Log.v("Answers: ", input);
-        Log.v("Actual: ", answer);
         if (((TextView)view).getText().toString().equals(getAnswers()[global])) {
             answerWasCorrect(view);
         } else {
@@ -109,6 +115,6 @@ public class MainActivity extends AppCompatActivity {
     public void resetScore(View view){
         userScore = 0;
         attempts = 0;
-        populateNewQuestionAndAnswer();
+        populateQuestionAndAnswer(view);
     }
 }

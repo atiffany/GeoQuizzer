@@ -8,6 +8,7 @@
     <string name="new_question">Get New Question</string>
     <string name="answer_title">Answer Choices</string>
     <string name="current_score">Current Score</string>
+    <string name="slash_symbol">/</string>
     <string name="reset_game">Start New Game</string>
 
     <!-- string array for QUIZ QUESTIONS-->

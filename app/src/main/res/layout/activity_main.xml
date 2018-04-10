@@ -7,30 +7,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/question_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
                 android:height="48dp"
-                android:text="@string/question_title"/>
+                android:text=""
+                android:textAllCaps="true"/>
+
 
             <LinearLayout
                 android:id="@+id/question_tile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="32dp"
+                android:layout_margin="16dp"
                 android:orientation="vertical"
-                android:layout_below="@+id/question_title">
+                android:minHeight="100dp"
+                android:background="@color/colorPrimary">
                 <TextView
                     android:id="@+id/question_text_constant"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:height="48dp"
-                    android:text="@string/what_is"/>
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/colorText"
+                    android:text=""/>
                 <TextView
                     android:id="@+id/question_text"
                     android:layout_width="wrap_content"
@@ -38,20 +50,25 @@
                     android:height="48dp"
                     android:clickable="true"
                     android:onClick="populateQuestionAndAnswer"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorText"
                     android:text="@string/begin"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/answer_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:height="48dp"
+                android:layout_margin="16dp"
                 android:layout_below="@id/question_tile"
-                android:text="@string/answer_title"
-                tools:ignore="NotSibling" />
+                android:text=""
+                android:textAllCaps="true"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_below="@id/answer_title">
                 <TextView
                     android:id="@+id/answer_text_1"
@@ -59,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:height="48dp"
                     android:layout_marginRight="16dp"
+                    android:layout_gravity="center_vertical"
                     android:clickable="true"
                     android:onClick="checkIfCorrect"
                     android:text=""/>
@@ -67,24 +85,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:height="48dp"
+                    android:layout_gravity="center"
                     android:clickable="true"
                     android:onClick="checkIfCorrect"
                     android:text=""/>
             </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="16dp">
             <TextView
+                android:id="@+id/current_score_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/current_score"
-                android:layout_above="@+id/score_box"/>
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/score_box"
+                android:text=""
+                android:textAllCaps="true"/>
             <LinearLayout
                 android:id="@+id/score_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:layout_above="@id/reset_button"
                 android:layout_centerHorizontal="true">
@@ -94,14 +119,15 @@
                     android:layout_height="wrap_content"
                     android:text=""/>
                 <TextView
+                    android:id="@+id/slash_symbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/"/>
+                    android:text=""/>
                 <TextView
                     android:id="@+id/highest_possible_score_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10"/>
+                    android:text=""/>
             </LinearLayout>
             <Button
                 android:id="@+id/reset_button"
